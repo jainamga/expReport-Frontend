@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../redux/store';
 import { Button, List, ListItem, ListItemText, Box } from '@mui/material';
