@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../redux/store';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { Typography } from '@mui/material';
-
+import apiClient from '../api/apiClient'; // 1. Import your central api client
 
 const AnalyticsDashboard = () => {
     const [data, setData] = useState([]);
@@ -13,7 +12,8 @@ const AnalyticsDashboard = () => {
     useEffect(() => {
         const fetchAnalytics = async () => {
             try {
-                const res = await axios.get('http://localhost:3001/api/expenses/analytics', {
+                // 2. Use the apiClient for the API call
+                const res = await apiClient.get('/expenses/analytics', {
                     headers: { Authorization: `Bearer ${token}` }
                 });
                 setData(res.data);

@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { loginSuccess } from '../redux/authslice';
 import { jwtDecode } from 'jwt-decode';
-
-// Import Material-UI components
 import { Button, TextField, Box, Typography, Container } from '@mui/material';
+import apiClient from '../api/apiClient'; // 1. Import your central api client
 
 const LoginPage = () => {
   const [email, setEmail] = useState('');
@@ -15,7 +13,8 @@ const LoginPage = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:3001/api/auth/login', {
+      // 2. Use the apiClient for the API call
+      const res = await apiClient.post('/auth/login', {
         email,
         password,
       });

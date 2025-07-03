@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import axios from 'axios';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../redux/store';
 import { Button, List, ListItem, ListItemText, Box } from '@mui/material';
+import apiClient from '../api/apiClient'; // 1. Import your central api client
 
 const ExpenseList = () => {
   const [expenses, setExpenses] = useState<any[]>([]);
@@ -11,7 +11,8 @@ const ExpenseList = () => {
   const fetchExpenses = useCallback(async () => {
     if (!token) return;
     try {
-      const res = await axios.get('http://localhost:3001/api/expenses', {
+      // 2. Use apiClient for getting expenses
+      const res = await apiClient.get('/expenses', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setExpenses(res.data);
@@ -26,12 +27,12 @@ const ExpenseList = () => {
 
   const handleStatusUpdate = async (id: number, status: 'approved' | 'rejected') => {
     try {
-      await axios.patch(
-        `http://localhost:3001/api/expenses/${id}/status`,
+      // 3. Use apiClient for updating status
+      await apiClient.patch(
+        `/expenses/${id}/status`,
         { status },
         { headers: { Authorization: `Bearer ${token}` } }
       );
-      // Refresh the list after updating
       fetchExpenses();
     } catch (error) {
       console.error('Failed to update status', error);

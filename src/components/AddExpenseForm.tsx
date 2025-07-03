@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../redux/store';
 import { Button, TextField, Box } from '@mui/material';
+import apiClient from '../api/apiClient'; // 1. Import the new api client
 
 const AddExpenseForm = () => {
   const [description, setDescription] = useState('');
@@ -12,19 +12,20 @@ const AddExpenseForm = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      await axios.post(
-        'http://localhost:3001/api/expenses',
+      // 2. Use the apiClient for the API call
+      await apiClient.post(
+        '/expenses', // The base URL is now handled automatically
         {
           description,
           amount: parseFloat(amount),
           category_id: 1, // Hardcoding category 1 for now
-          expense_date: new Date().toISOString().split('T')[0], // Use today's date
+          expense_date: new Date().toISOString().split('T')[0],
         },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      // Ideally, you'd refresh the expense list here
+      
       alert('Expense submitted!');
       setDescription('');
       setAmount('');
