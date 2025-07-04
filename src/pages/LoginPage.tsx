@@ -14,6 +14,7 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import apiClient from '../api/apiClient';
+import { Link as RouterLink } from 'react-router-dom';
 
 // Styled components for better visual hierarchy
 const StyledPaper = styled(Paper)(({ theme }) => ({
@@ -158,6 +159,15 @@ const LoginPage = () => {
                   'Sign In'
                 )}
               </StyledButton>
+              <Button
+                component={RouterLink}
+                to="/register"
+                fullWidth
+                variant="outlined"
+                sx={{ mt: 1 }}
+              >
+                New user? Register
+              </Button>
             </Box>
           </Box>
         </StyledPaper>
