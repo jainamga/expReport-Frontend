@@ -10,10 +10,11 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import apiClient from '../api/apiClient';
+import { Link as RouterLink } from 'react-router-dom';
 
 const roles = [
   { value: 'Employee', label: 'Employee' },
-  { value: 'Manager', label: 'Manager' },
+  { value: 'Admin', label: 'Admin' },
 ];
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
@@ -160,6 +161,15 @@ const RegistrationPage = () => {
               >
                 Register
               </StyledButton>
+              <Button
+                component={RouterLink}
+                to="/login"
+                fullWidth
+                variant="outlined"
+                sx={{ mb: 2 }}
+              >
+                Already have an account? Login
+              </Button>
               {message && (
                 <Typography color="primary" sx={{ mt: 2 }}>
                   {message}

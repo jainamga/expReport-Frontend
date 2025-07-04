@@ -1,34 +1,43 @@
 import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import type { RootState } from '../redux/store';
-import { Button, TextField, Box } from '@mui/material';
+import { Button, TextField, Box, MenuItem, Select, InputLabel, FormControl } from '@mui/material';
 import apiClient from '../api/apiClient'; // 1. Import the new api client
+
+const categories = [
+  { id: 1, name: 'Food' },
+  { id: 2, name: 'Transport' },
+  { id: 3, name: 'Utilities' },
+  { id: 4, name: 'Entertainment' },
+  { id: 5, name: 'Shopping' },
+  { id: 6, name: 'Health' },
+];
 
 const AddExpenseForm = () => {
   const [description, setDescription] = useState('');
   const [amount, setAmount] = useState('');
+  const [categoryId, setCategoryId] = useState(1);
   const token = useSelector((state: RootState) => state.auth.token);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      // 2. Use the apiClient for the API call
       await apiClient.post(
-        '/expenses', // The base URL is now handled automatically
+        '/expenses',
         {
           description,
           amount: parseFloat(amount),
-          category_id: 1, // Hardcoding category 1 for now
+          category_id: categoryId,
           expense_date: new Date().toISOString().split('T')[0],
         },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
-      
       alert('Expense submitted!');
       setDescription('');
       setAmount('');
+      setCategoryId(1);
     } catch (error) {
       console.error('Failed to submit expense', error);
     }
@@ -54,6 +63,21 @@ const AddExpenseForm = () => {
         required
         margin="normal"
       />
+      <FormControl fullWidth margin="normal" required>
+        <InputLabel id="category-label">Category</InputLabel>
+        <Select
+          labelId="category-label"
+          value={categoryId}
+          label="Category"
+          onChange={(e) => setCategoryId(Number(e.target.value))}
+        >
+          {categories.map((cat) => (
+            <MenuItem key={cat.id} value={cat.id}>
+              {cat.name}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
       <Button type="submit" variant="contained">Submit</Button>
     </Box>
   );
