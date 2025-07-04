@@ -22,7 +22,7 @@ This is a React + TypeScript frontend for an Expense Tracker application. It use
 
 1. **Clone the repository:**
    ```sh
-   git clone <your-repo-url>
+   git clone https://github.com/jainamga/expReport-Frontend
    cd expense-tracker-frontend
    ```
 
