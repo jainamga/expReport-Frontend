@@ -38,6 +38,7 @@ const AddExpenseForm = () => {
       setDescription('');
       setAmount('');
       setCategoryId(1);
+      window.location.reload(); // Refresh the page after submit
     } catch (error) {
       console.error('Failed to submit expense', error);
     }

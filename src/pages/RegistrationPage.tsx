@@ -10,7 +10,7 @@ import {
 } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import apiClient from '../api/apiClient';
-import { Link as RouterLink } from 'react-router-dom';
+import { Link as RouterLink, useNavigate } from 'react-router-dom';
 
 const roles = [
   { value: 'Employee', label: 'Employee' },
@@ -43,6 +43,7 @@ const RegistrationPage = () => {
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('Employee');
   const [message, setMessage] = useState('');
+  const navigate = useNavigate(); // Add this line
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -54,7 +55,9 @@ const RegistrationPage = () => {
         password,
         role,
       });
-      setMessage(res.data.message || 'Registration successful!');
+      // Show popup and redirect to login
+      window.alert(res.data.message || 'Registration successful!');
+      navigate('/login');
     } catch (error: any) {
       setMessage(error.response?.data?.message || 'Registration failed');
     }

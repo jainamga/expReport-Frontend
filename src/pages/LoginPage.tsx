@@ -68,12 +68,15 @@ const LoginPage = () => {
   return (
     <Box
       sx={{
-        minHeight: '100vh',
-        width: '100vw', // Ensure full width
+       minHeight: '100vh',
+        width: '100vw',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
-        background: 'linear-gradient(135deg, #ff9800, #ffeb3b)', // Orange to yellow gradient
+        backgroundImage: 'url("/bgimg.jpg")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
       }}
     >
       <Fade in timeout={600}>
